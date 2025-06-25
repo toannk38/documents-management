@@ -11,19 +11,19 @@ const DocumentWorkflow = require('./DocumentWorkflow');
 const DocumentComment = require('./DocumentComment');
 const SystemSetting = require('./SystemSetting');
 
-// Define associations here if needed
-// Example: User.belongsToMany(Role, { through: 'user_roles' });
+// Associations
+User.belongsToMany(Role, { through: 'user_roles', foreignKey: 'user_id' });
+Role.belongsToMany(User, { through: 'user_roles', foreignKey: 'role_id' });
+Role.belongsToMany(Permission, { through: 'role_permissions', foreignKey: 'role_id' });
+Permission.belongsToMany(Role, { through: 'role_permissions', foreignKey: 'permission_id' });
+User.hasMany(Document, { foreignKey: 'created_by' });
+Document.belongsTo(User, { foreignKey: 'created_by', as: 'creator' });
 
 module.exports = {
   User,
   Role,
   Permission,
   Document,
-  DocumentVersion,
-  DocumentFile,
-  DigitalSignature,
-  AuditLog,
-  DocumentCategory,
   DocumentWorkflow,
   DocumentComment,
   SystemSetting,
