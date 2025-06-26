@@ -18,6 +18,8 @@ Role.belongsToMany(Permission, { through: 'role_permissions', foreignKey: 'role_
 Permission.belongsToMany(Role, { through: 'role_permissions', foreignKey: 'permission_id' });
 User.hasMany(Document, { foreignKey: 'created_by' });
 Document.belongsTo(User, { foreignKey: 'created_by', as: 'creator' });
+User.hasMany(AuditLog, { foreignKey: 'user_id' });
+AuditLog.belongsTo(User, { foreignKey: 'user_id' });
 
 module.exports = {
   User,
