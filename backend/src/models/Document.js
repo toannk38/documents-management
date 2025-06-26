@@ -33,6 +33,8 @@ Document.init({
   modelName: 'Document',
   tableName: 'documents',
   timestamps: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at',
 });
 
 module.exports = Document;

@@ -31,7 +31,9 @@ AuditLog.init({
   sequelize,
   modelName: 'AuditLog',
   tableName: 'audit_logs',
-  timestamps: false,
+  timestamps: true,
+  createdAt: 'created_at',
+  updatedAt: false,
 });
 
 module.exports = AuditLog;

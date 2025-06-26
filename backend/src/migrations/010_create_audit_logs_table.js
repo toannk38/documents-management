@@ -21,8 +21,18 @@ module.exports = {
       context: Sequelize.JSONB,
       created_at: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
     });
-    await queryInterface.addIndex('audit_logs', ['user_id']);
-    await queryInterface.addIndex('audit_logs', ['created_at']);
+    // Add index on user_id if not exists
+    try {
+      await queryInterface.addIndex('audit_logs', ['user_id']);
+    } catch (e) {
+      if (!e.message.includes('already exists')) throw e;
+    }
+    // Add index on created_at if not exists
+    try {
+      await queryInterface.addIndex('audit_logs', ['created_at']);
+    } catch (e) {
+      if (!e.message.includes('already exists')) throw e;
+    }
   },
   down: async (queryInterface) => {
     await queryInterface.dropTable('audit_logs');

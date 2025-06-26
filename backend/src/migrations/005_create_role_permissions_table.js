@@ -4,12 +4,14 @@ module.exports = {
       role_id: {
         type: Sequelize.UUID,
         allowNull: false,
+        primaryKey: true,
         references: { model: 'roles', key: 'id' },
         onDelete: 'CASCADE',
       },
       permission_id: {
         type: Sequelize.UUID,
         allowNull: false,
+        primaryKey: true,
         references: { model: 'permissions', key: 'id' },
         onDelete: 'CASCADE',
       },
@@ -21,11 +23,6 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
-    });
-    await queryInterface.addConstraint('role_permissions', {
-      fields: ['role_id', 'permission_id'],
-      type: 'primary key',
-      name: 'pk_role_permissions',
     });
   },
   down: async (queryInterface) => {

@@ -1,6 +1,6 @@
 // audit.e2e.test.js
 const request = require('supertest');
-const app = require('../../../../app');
+const app = require('../../../app');
 
 describe('Audit Log E2E', () => {
   let token;

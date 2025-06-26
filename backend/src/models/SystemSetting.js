@@ -21,6 +21,8 @@ SystemSetting.init({
   modelName: 'SystemSetting',
   tableName: 'system_settings',
   timestamps: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at',
 });
 
 module.exports = SystemSetting;

@@ -1,3 +1,4 @@
+const { sequelize } = require('../config/database');
 const User = require('./User');
 const Role = require('./Role');
 const Permission = require('./Permission');
@@ -29,4 +30,9 @@ module.exports = {
   DocumentWorkflow,
   DocumentComment,
   SystemSetting,
+  DocumentCategory,
+  DocumentFile,
+  DigitalSignature,
+  AuditLog,
+  sequelize,
 };

@@ -1,5 +1,5 @@
 // auditService.test.js
-const { AuditLog } = require('../../../../src/models');
+const { AuditLog } = require('../../../models');
 const auditService = require('../../../../src/services/auditService');
 
 describe('AuditService', () => {

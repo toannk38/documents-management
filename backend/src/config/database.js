@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const logger = require('../utils/logger');
 
@@ -14,6 +15,13 @@ const sequelize = new Sequelize(
       min: Number(process.env.DB_POOL_MIN) || 2,
       max: Number(process.env.DB_POOL_MAX) || 10,
     },
+    ssl: true,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false
+      }
+    }
   }
 );
 

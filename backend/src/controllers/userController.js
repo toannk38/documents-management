@@ -353,3 +353,18 @@ exports.getUserActivities = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.toggleUserStatus = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findByPk(id);
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+    user.is_active = !user.is_active;
+    await user.save();
+    res.json({ success: true, message: 'User status toggled', data: { user } });
+  } catch (err) {
+    next(err);
+  }
+};

@@ -20,6 +20,8 @@ Permission.init({
   modelName: 'Permission',
   tableName: 'permissions',
   timestamps: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at',
 });
 
 module.exports = Permission;

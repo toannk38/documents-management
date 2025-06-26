@@ -16,6 +16,8 @@ DocumentCategory.init({
   modelName: 'DocumentCategory',
   tableName: 'document_categories',
   timestamps: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at',
 });
 
 module.exports = DocumentCategory;

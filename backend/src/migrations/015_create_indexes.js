@@ -1,20 +1,31 @@
 module.exports = {
   up: async (queryInterface) => {
-    // Add indexes as needed
-    await queryInterface.addIndex('users', ['username']);
-    await queryInterface.addIndex('users', ['email']);
-    await queryInterface.addIndex('documents', ['document_number']);
-    await queryInterface.addIndex('documents', ['created_by']);
-    await queryInterface.addIndex('document_versions', ['document_id']);
-    await queryInterface.addIndex('document_files', ['document_id']);
-    await queryInterface.addIndex('document_files', ['version_id']);
-    await queryInterface.addIndex('digital_signatures', ['document_id']);
-    await queryInterface.addIndex('digital_signatures', ['signer_id']);
-    await queryInterface.addIndex('audit_logs', ['user_id']);
-    await queryInterface.addIndex('audit_logs', ['created_at']);
-    await queryInterface.addIndex('document_comments', ['document_id']);
-    await queryInterface.addIndex('document_comments', ['user_id']);
-    await queryInterface.addIndex('system_settings', ['key']);
+    // Add indexes as needed, skip if already exists
+    const safeAddIndex = async (table, fields, options = {}) => {
+      try {
+        await queryInterface.addIndex(table, fields, options);
+      } catch (err) {
+        if (err.original && err.original.code === '42P07') {
+          console.log(`Index on ${table}(${fields}) already exists, skipping.`);
+        } else {
+          throw err;
+        }
+      }
+    };
+    await safeAddIndex('users', ['username']);
+    await safeAddIndex('users', ['email']);
+    await safeAddIndex('documents', ['document_number']);
+    await safeAddIndex('documents', ['created_by']);
+    await safeAddIndex('document_versions', ['document_id']);
+    await safeAddIndex('document_files', ['document_id']);
+    await safeAddIndex('document_files', ['version_id']);
+    await safeAddIndex('digital_signatures', ['document_id']);
+    await safeAddIndex('digital_signatures', ['signer_id']);
+    await safeAddIndex('audit_logs', ['user_id']);
+    await safeAddIndex('audit_logs', ['created_at']);
+    await safeAddIndex('document_comments', ['document_id']);
+    await safeAddIndex('document_comments', ['user_id']);
+    await safeAddIndex('system_settings', ['key']);
   },
   down: async (queryInterface) => {
     await queryInterface.removeIndex('users', ['username']);
